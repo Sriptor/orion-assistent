@@ -1,1 +1,487 @@
-Hi
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Орион - Умный голосовой ассистент</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Hero секция */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: #111;
+            border-bottom: 1px solid #222;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #007bff, #00bfff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #888;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 1px solid #007bff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Прозрачный индикатор нажатия для мобилок */
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .cta-button:active::after {
+            width: 100px;
+            height: 100px;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: #007bff;
+        }
+
+        /* Features сетка */
+        .features {
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #fff;
+            font-weight: 300;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .feature-card:active::after {
+            width: 120px;
+            height: 120px;
+        }
+
+        .feature-card:hover {
+            border-color: #007bff;
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .feature-desc {
+            color: #888;
+            font-size: 1rem;
+        }
+
+        /* Download секция */
+        .download {
+            padding: 80px 20px;
+            text-align: center;
+            background: #111;
+            border-radius: 12px;
+            margin: 40px 0;
+        }
+
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .download-btn:active::after {
+            width: 100px;
+            height: 100px;
+        }
+
+        .download-btn:hover {
+            border-color: #007bff;
+            background: #007bff;
+        }
+
+        /* Нижнее меню с эффектом Liquid Glass */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+        }
+
+        .nav-item {
+            text-align: center;
+        }
+
+        .nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .nav-link:active::after {
+            width: 60px;
+            height: 60px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #007bff;
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .download-btn {
+                width: 250px;
+                justify-content: center;
+            }
+        }
+
+        /* Дополнительные стили для индикаторов */
+        .clickable {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .clickable::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+            pointer-events: none;
+        }
+
+        .clickable:active::after {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero секция -->
+        <section class="hero">
+            <div class="hero-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h1>ОРИОН</h1>
+            <p>Продвинутый голосовой ассистент с искусственным интеллектом для вашего ПК</p>
+            <a href="#download" class="cta-button clickable">
+                <i class="fas fa-download"></i> Скачать бесплатно
+            </a>
+        </section>
+
+        <!-- Features секция -->
+        <section class="features">
+            <h2 class="section-title">Возможности</h2>
+            <div class="features-grid">
+                <div class="feature-card clickable">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                    <h3 class="feature-title">Умная погода</h3>
+                    <p class="feature-desc">Точные прогнозы погоды с автоматическим определением местоположения</p>
+                </div>
+                <div class="feature-card clickable">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Голосовое управление</h3>
+                    <p class="feature-desc">Управляйте приложениями и системой голосовыми командами</p>
+                </div>
+                <div class="feature-card clickable">
+                    <div class="feature-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="feature-title">Управление медиа</h3>
+                    <p class="feature-desc">Запускайте музыку и видео на популярных стриминговых сервисах</p>
+                </div>
+                <div class="feature-card clickable">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3 class="feature-title">Умные напоминания</h3>
+                    <p class="feature-desc">Голосовые напоминания о важных событиях и задачах</p>
+                </div>
+                <div class="feature-card clickable">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="feature-title">Для разработчиков</h3>
+                    <p class="feature-desc">Интеграция с IDE и инструментами разработки</p>
+                </div>
+                <div class="feature-card clickable">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="feature-title">Высокая скорость</h3>
+                    <p class="feature-desc">Оптимизированный код для мгновенного отклика</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download секция -->
+        <section id="download" class="download">
+            <h2 class="section-title">Установите Орион</h2>
+            <p style="color: #888; margin-bottom: 30px; font-size: 1.1rem;">
+                Совместим с Windows, Linux и macOS. Бесплатно и с открытым исходным кодом.
+            </p>
+            <div class="download-buttons">
+                <a href="#" class="download-btn clickable">
+                    <i class="fab fa-windows"></i>
+                    <span>Windows</span>
+                </a>
+                <a href="#" class="download-btn clickable">
+                    <i class="fab fa-linux"></i>
+                    <span>Linux</span>
+                </a>
+                <a href="#" class="download-btn clickable">
+                    <i class="fab fa-apple"></i>
+                    <span>macOS</span>
+                </a>
+                <a href="#" class="download-btn clickable">
+                    <i class="fab fa-github"></i>
+                    <span>Исходный код</span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Нижнее меню -->
+    <nav class="bottom-nav">
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active clickable">
+                        <i class="fas fa-home nav-icon"></i>
+                        <span>Главная</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#features" class="nav-link clickable">
+                        <i class="fas fa-star nav-icon"></i>
+                        <span>Возможности</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#download" class="nav-link clickable">
+                        <i class="fas fa-download nav-icon"></i>
+                        <span>Скачать</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link clickable">
+                        <i class="fas fa-book nav-icon"></i>
+                        <span>Документация</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link clickable">
+                        <i class="fas fa-users nav-icon"></i>
+                        <span>Сообщество</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <script>
+        // Добавляем класс clickable ко всем интерактивным элементам
+        document.addEventListener('DOMContentLoaded', function() {
+            const interactiveElements = document.querySelectorAll('a, button, .feature-card, .download-btn');
+            interactiveElements.forEach(element => {
+                element.classList.add('clickable');
+            });
+        });
+    </script>
+</body>
+</html>
