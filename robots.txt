@@ -1,0 +1,30 @@
+# robots.txt
+User-agent: *
+Allow: /
+Allow: /download
+Allow: /features
+Allow: /docs
+Allow: /community
+
+Disallow: /admin/
+Disallow: /private/
+Disallow: /tmp/
+
+Sitemap: https://orion-assistant.com/sitemap.xml
+
+# Поисковые системы
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+# Боты архивации
+User-agent: ia_archiver
+Allow: /
+
+# Скорость сканирования (запросов в секунду)
+Crawl-delay: 1
