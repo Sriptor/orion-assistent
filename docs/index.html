@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orion - Голосовой ассистент</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: #0a0a0a;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255,255,255,0.04) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 100px 0 80px;
+            color: white;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .download-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .features {
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 80px 0;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 60px;
+            color: #e0e0e0;
+            font-size: 2.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding: 0 40px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            background: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            background: rgba(51, 51, 51, 0.9);
+            border-color: rgba(255,255,255,0.3);
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+
+        .feature-card p {
+            color: #b0b0b0;
+        }
+
+        .github-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .github-link:hover {
+            color: #ff6b35;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: white;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">🎤 Orion</h1>
+            <p class="subtitle">Интеллектуальный голосовой ассистент для Windows</p>
+            <a href="https://github.com/Sriptor/orion-assistent/releases" class="download-btn">
+                📥 Скачать для Windows
+            </a>
+            <br><br>
+            <a href="https://github.com/Sriptor/orion-assistent" class="github-link">
+                🔗 GitHub Repository
+            </a>
+        </div>
+    </header>
+
+    <section class="features">
+        <div class="container">
+            <h2>🚀 Возможности</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎤</div>
+                    <h3>Распознавание речи</h3>
+                    <p>Точное распознавание русской речи с помощью Google Speech Recognition</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🗣️</div>
+                    <h3>Синтез речи</h3>
+                    <p>Естественная речь с мужским голосом через Windows SAPI</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>ИИ интеграция</h3>
+                    <p>Мощный ИИ от Zhipu AI для ответов на любые вопросы</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌤️</div>
+                    <h3>Погода</h3>
+                    <p>Актуальная информация о погоде в вашем городе</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Приложения</h3>
+                    <p>Быстрый запуск браузера, калькулятора и других программ</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3>Напоминания</h3>
+                    <p>Установка напоминаний и будильников</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Поиск</h3>
+                    <p>Быстрый поиск информации в Google</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎵</div>
+                    <h3>Музыка</h3>
+                    <p>Открытие Яндекс.Музыки для прослушивания треков</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Orion Voice Assistant. Создано с ❤️ для Windows пользователей.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

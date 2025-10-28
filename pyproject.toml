@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orion-voice-assistant"
+version = "1.0.0"
+description = "Intelligent voice assistant for Windows"
+authors = [
+    {name = "Orion Team", email = "team@orion.ai"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+]
+dependencies = [
+    "speechrecognition>=3.10.0",
+    "requests>=2.31.0",
+    "pyaudio>=0.2.11",
+    "zai-sdk",
+    "pywin32>=306",
+]
+
+[project.urls]
+Homepage = "https://github.com/orion-team/orion"
+Repository = "https://github.com/orion-team/orion.git"
+Issues = "https://github.com/orion-team/orion/issues"
+
+[project.scripts]
+orion = "orion.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+orion = ["*.txt", "*.md"]
